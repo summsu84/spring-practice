@@ -13,12 +13,22 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SequenceGeneratorConfiguration {
 
+
+    @Bean
+    public DatePrefixGenerator datePrefixGenerator() {
+        DatePrefixGenerator datePrefixGenerator = new DatePrefixGenerator();
+        datePrefixGenerator.setPattern("yyyymmdd");
+        return datePrefixGenerator;
+    }
+
     @Bean
     public SequenceGenerator sequenceGenerator() {
         SequenceGenerator seqgen = new SequenceGenerator();
         seqgen.setPrefix("30");
         seqgen.setSuffix("A");
         seqgen.setInitial(100000);
+        // DatePrefixGenerator 빈을 주입한다..
+        seqgen.setPrefixGenerator(datePrefixGenerator());
         return seqgen;
     }
 }

@@ -8,6 +8,7 @@ public class SequenceGenerator {
     private String suffix;
     private int initial;
     private final AtomicInteger couter = new AtomicInteger();
+    private DatePrefixGenerator datePrefixGenerator;
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
@@ -26,8 +27,13 @@ public class SequenceGenerator {
         builder.append(prefix)
                 .append(initial)
                 .append(couter.getAndIncrement())
-                .append(suffix);
+                .append(suffix)
+                .append(datePrefixGenerator.getPattern());
 
         return builder.toString();
+    }
+
+    public void setPrefixGenerator(DatePrefixGenerator datePrefixGenerator) {
+        this.datePrefixGenerator = datePrefixGenerator;
     }
 }
